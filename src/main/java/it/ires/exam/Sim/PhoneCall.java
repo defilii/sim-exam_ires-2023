@@ -3,20 +3,16 @@ package it.ires.exam.Sim;
 public class PhoneCall {
     private final String toWhom;
     private int callLenght;
-    private TypeCall typeCall;
+    private final TypeCall typeCall;
 
     public PhoneCall(String toWhom, TypeCall typeCall) {
         this.typeCall = typeCall;
-        int callLenght;
+        this.callLenght = 0;
         this.toWhom = toWhom;
     }
 
     public String getToWhom() {
         return toWhom;
-    }
-
-    public int getCallLenght() {
-        return callLenght;
     }
 
     public void setCallLenght(int callLenght) {
@@ -26,9 +22,9 @@ public class PhoneCall {
     @Override
     public String toString() {
         if (typeCall.equals(TypeCall.Calling)) {
-            return "PhoneCall to " + toWhom + " which lasted " + +callLenght + '\n';
+            return "PhoneCall to " + toWhom + " which lasted " + callLenght + '\n';
         } else {
-            return "PhoneCall from " + toWhom + " which lasted " + +callLenght + '\n';
+            return "PhoneCall from " + toWhom + " which lasted " + callLenght + '\n';
         }
     }
 

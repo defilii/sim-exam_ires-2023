@@ -1,4 +1,4 @@
-package it.ires.exam;
+package it.ires.exam.network;
 
 import it.ires.exam.Sim.SimCard;
 

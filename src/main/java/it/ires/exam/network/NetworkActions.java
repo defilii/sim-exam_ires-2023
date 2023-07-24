@@ -1,8 +1,7 @@
-package it.ires.exam;
+package it.ires.exam.network;
 
-import it.ires.exam.Sim.PhoneCall;
+import it.ires.exam.Sim.OperatorPlan;
 import it.ires.exam.Sim.SimCard;
-import it.ires.exam.Sim.TypeCall;
 import it.ires.exam.exceptions.NotInCallException;
 import it.ires.exam.exceptions.PhoneIsAlreadyInCallException;
 import it.ires.exam.smartphone.SmartphoneActions;
@@ -37,7 +36,10 @@ public class NetworkActions implements NetworkDistribution {
         } else {
             throw new NotInCallException();
         }
+    }
 
-
+    @Override
+    public void changePlan(SimCard simCard, OperatorPlan operatorPlan) {
+        simCard.setPlan(operatorPlan);
     }
 }
