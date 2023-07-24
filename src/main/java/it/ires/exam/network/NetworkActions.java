@@ -4,12 +4,12 @@ import it.ires.exam.Sim.OperatorPlan;
 import it.ires.exam.Sim.SimCard;
 import it.ires.exam.exceptions.NotInCallException;
 import it.ires.exam.exceptions.PhoneIsAlreadyInCallException;
-import it.ires.exam.smartphone.SmartphoneActions;
+import it.ires.exam.smartphone.Smartphone;
 
 import java.util.Optional;
 
 public class NetworkActions implements NetworkDistribution {
-    SmartphoneActions smartphoneActions = new SmartphoneActions();
+    Smartphone smartphone = new Smartphone();
 
     SimCard simThatsCalling;
     SimCard simThatsGettingCalled;
@@ -18,7 +18,7 @@ public class NetworkActions implements NetworkDistribution {
     public void call(SimCard simThatsCalling, SimCard simThatsGettingCalled) throws PhoneIsAlreadyInCallException {
         if (!simThatsCalling.getCallStatus() &&
                 !simThatsGettingCalled.getCallStatus()) {
-            smartphoneActions.startPhoneCall(simThatsCalling, simThatsGettingCalled);
+            smartphone.startPhoneCall(simThatsCalling, simThatsGettingCalled);
             this.simThatsCalling = simThatsCalling;
             this.simThatsGettingCalled = simThatsGettingCalled;
         } else {
@@ -32,7 +32,7 @@ public class NetworkActions implements NetworkDistribution {
         Optional<SimCard> sim1 = Optional.ofNullable(simThatsCalling);
         Optional<SimCard> sim2 = Optional.ofNullable(simThatsGettingCalled);
         if (sim1.isPresent() && sim2.isPresent()) {
-            smartphoneActions.stopPhoneCall(simThatsCalling, simThatsGettingCalled);
+            smartphone.stopPhoneCall(simThatsCalling, simThatsGettingCalled);
         } else {
             throw new NotInCallException();
         }

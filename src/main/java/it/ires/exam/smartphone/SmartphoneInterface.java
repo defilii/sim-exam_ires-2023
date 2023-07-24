@@ -1,10 +1,9 @@
 package it.ires.exam.smartphone;
 
 import it.ires.exam.Sim.SimCard;
-import it.ires.exam.exceptions.PhoneIsAlreadyInCallException;
 import it.ires.exam.Sim.PhoneCall;
 
-public interface SmartPhone {
+public interface SmartphoneInterface {
 
     PhoneCall startPhoneCall(SimCard simCard, SimCard simThatsGettingCalled);
     void stopPhoneCall(SimCard simCardThatsCalling, SimCard simCardThatsGettingCalled);

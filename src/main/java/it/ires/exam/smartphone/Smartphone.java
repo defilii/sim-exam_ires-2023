@@ -3,14 +3,33 @@ package it.ires.exam.smartphone;
 import it.ires.exam.Sim.PhoneCall;
 import it.ires.exam.Sim.SimCard;
 import it.ires.exam.Sim.TypeCall;
-import java.time.LocalDateTime;
+import it.ires.exam.exceptions.SimCardNotInsertedException;
 
-public class SmartphoneActions implements SmartPhone {
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+public class Smartphone implements SmartphoneInterface {
     PhoneCall handledPhoneCallThatsCalling;
     PhoneCall handledPhoneCallThatsGettingCalled;
     static int startCallTime;
     static int startCallHour;
     int phoneCallDuration;
+    SimCard simCard;
+
+    public Smartphone(SimCard simCard) {
+        this.simCard = simCard;
+    }
+
+    public Smartphone(){}
+
+    public PhoneCall startPhoneCall(SimCard simCardThasGettingCalled) throws SimCardNotInsertedException {
+        Optional<SimCard> simCardOptional = Optional.ofNullable(simCard);
+        if (simCardOptional.isPresent()){
+            return startPhoneCall(simCardOptional.get(), simCardThasGettingCalled);
+        }else{
+            throw new SimCardNotInsertedException();
+        }
+    }
 
     @Override
     public PhoneCall startPhoneCall(SimCard simCardThatsCalling, SimCard simCardThatsGettingCalled){
