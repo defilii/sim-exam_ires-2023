@@ -1,4 +1,4 @@
-package it.ires.exam;
+package it.ires.exam.Sim;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,10 @@ public class SimCard {
         this.credit = credit;
         Set<PhoneCall> phoneCalls = new HashSet<>();
         this.plan = plan;
+    }
+
+    public void addPhoneCall(PhoneCall phoneCall) {
+        phoneCalls.add(phoneCall);
     }
 
     public String getPhoneNumber() {
@@ -42,6 +46,15 @@ public class SimCard {
 
     public void setPhoneCalls(Set<PhoneCall> phoneCalls) {
         this.phoneCalls = phoneCalls;
+    }
+
+    @Override
+    public String toString() {
+        return "SimCard info\n" +
+                "Phone number = " + phoneNumber + '\n' +
+                "Credit = " + credit + '\n' +
+                "Current plans =" + plan + '\n' +
+                "Phone calls =" + phoneCalls;
     }
 
 }

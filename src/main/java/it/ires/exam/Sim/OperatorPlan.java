@@ -1,4 +1,4 @@
-package it.ires.exam;
+package it.ires.exam.Sim;
 
 public class OperatorPlan {
     private final Plan plan;
