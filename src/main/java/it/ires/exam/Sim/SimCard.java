@@ -9,11 +9,15 @@ public class SimCard {
     private OperatorPlan plan;
     private Set<PhoneCall> phoneCalls;
 
+
+    private boolean isCallActive;
+
     public SimCard(String phoneNumber, Float credit, OperatorPlan plan) {
         this.phoneNumber = phoneNumber;
         this.credit = credit;
         Set<PhoneCall> phoneCalls = new HashSet<>();
         this.plan = plan;
+        isCallActive = false;
     }
 
     public void addPhoneCall(PhoneCall phoneCall) {
@@ -46,6 +50,14 @@ public class SimCard {
 
     public void setPhoneCalls(Set<PhoneCall> phoneCalls) {
         this.phoneCalls = phoneCalls;
+    }
+
+    public boolean getCallStatus() {
+        return isCallActive;
+    }
+
+    public void setCallStatus(boolean callActive) {
+        isCallActive = callActive;
     }
 
     @Override

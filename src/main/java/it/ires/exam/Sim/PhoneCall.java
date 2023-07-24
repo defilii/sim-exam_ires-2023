@@ -3,7 +3,10 @@ package it.ires.exam.Sim;
 public class PhoneCall {
     private final String toWhom;
     private int callLenght;
-    public PhoneCall(String toWhom) {
+    private TypeCall typeCall;
+
+    public PhoneCall(String toWhom, TypeCall typeCall) {
+        this.typeCall = typeCall;
         int callLenght;
         this.toWhom = toWhom;
     }
@@ -22,7 +25,11 @@ public class PhoneCall {
 
     @Override
     public String toString() {
-        return "PhoneCall to " + toWhom + " which lasted " + + callLenght + '\n';
+        if (typeCall.equals(TypeCall.Calling)) {
+            return "PhoneCall to " + toWhom + " which lasted " + +callLenght + '\n';
+        } else {
+            return "PhoneCall from " + toWhom + " which lasted " + +callLenght + '\n';
+        }
     }
 
 }

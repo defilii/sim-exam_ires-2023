@@ -6,9 +6,9 @@ import it.ires.exam.Sim.PhoneCall;
 
 public interface SmartPhone {
 
-    PhoneCall startPhoneCall(SimCard simCard, String toWhom) throws PhoneIsAlreadyInCallException;
-    void stopPhoneCall();
-    boolean isCallActive();
+    PhoneCall startPhoneCall(SimCard simCard, SimCard simThatsGettingCalled);
+    void stopPhoneCall(SimCard simCardThatsCalling, SimCard simCardThatsGettingCalled);
+    boolean isCallActive(SimCard simCardThatsCalling, SimCard simCardThatsGettingCalled);
     long phoneCallDuration();
     int howManyTimesHaveIcalledThisNumber(SimCard simCard, String phoneNumber);
 

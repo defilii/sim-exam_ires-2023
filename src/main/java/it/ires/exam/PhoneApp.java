@@ -1,4 +1,4 @@
-package it.ires.exam.Sim;
+package it.ires.exam;
 
 public class PhoneApp {
 

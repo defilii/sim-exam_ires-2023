@@ -2,40 +2,43 @@ package it.ires.exam.smartphone;
 
 import it.ires.exam.Sim.PhoneCall;
 import it.ires.exam.Sim.SimCard;
-import it.ires.exam.exceptions.PhoneIsAlreadyInCallException;
-
+import it.ires.exam.Sim.TypeCall;
 import java.time.LocalDateTime;
 
 public class SmartphoneActions implements SmartPhone {
-    PhoneCall handledPhoneCall;
+    PhoneCall handledPhoneCallThatsCalling;
+    PhoneCall handledPhoneCallThatsGettingCalled;
     static int startCallTime;
     static int startCallHour;
-    boolean isCallActive = false;
+    int phoneCallDuration;
 
     @Override
-    public PhoneCall startPhoneCall(SimCard simCard, String toWhom) throws PhoneIsAlreadyInCallException {
-        if (!isCallActive()) {
-            PhoneCall currentPhoneCall = new PhoneCall(toWhom);
-            this.handledPhoneCall = currentPhoneCall;
-            simCard.addPhoneCall(currentPhoneCall);
+    public PhoneCall startPhoneCall(SimCard simCardThatsCalling, SimCard simCardThatsGettingCalled){
+            PhoneCall currentPhoneCall = new PhoneCall(simCardThatsGettingCalled.getPhoneNumber(), TypeCall.Calling);
+            PhoneCall currentPhoneCallReceiving = new PhoneCall(simCardThatsCalling.getPhoneNumber(), TypeCall.Receiving);
+            this.handledPhoneCallThatsCalling = currentPhoneCall;
+            this.handledPhoneCallThatsGettingCalled = currentPhoneCallReceiving;
+            simCardThatsCalling.addPhoneCall(currentPhoneCall);
+            simCardThatsGettingCalled.addPhoneCall(currentPhoneCallReceiving);
             startCallTime = LocalDateTime.now().getMinute();
             startCallHour = LocalDateTime.now().getHour();
-            isCallActive = true;
+            simCardThatsGettingCalled.setCallStatus(true);
+            simCardThatsCalling.setCallStatus(true);
             return currentPhoneCall;
-        } else {
-            throw new PhoneIsAlreadyInCallException();
         }
+
+
+    @Override
+    public void stopPhoneCall(SimCard simCardThatsCalling, SimCard simCardThatsGettingCalled) {
+        handledPhoneCallThatsCalling.setCallLenght((int) phoneCallDuration());
+        handledPhoneCallThatsGettingCalled.setCallLenght((int) phoneCallDuration());
+        simCardThatsGettingCalled.setCallStatus(false);
+        simCardThatsCalling.setCallStatus(false);
     }
 
     @Override
-    public void stopPhoneCall() {
-        handledPhoneCall.setCallLenght((int) phoneCallDuration());
-        isCallActive = false;
-    }
-
-    @Override
-    public boolean isCallActive() {
-        return isCallActive;
+    public boolean isCallActive(SimCard simCardThatsCalling, SimCard simCardThatsGettingCalled) {
+        return (simCardThatsGettingCalled.getCallStatus() && simCardThatsCalling.getCallStatus());
     }
 
     @Override
@@ -45,7 +48,8 @@ public class SmartphoneActions implements SmartPhone {
             return (stopCallTime - startCallTime);
         } else {
             int elapsedHoursInMinutes = (LocalDateTime.now().getHour() - startCallHour) * 60;
-            return (stopCallTime + elapsedHoursInMinutes - startCallTime);
+            phoneCallDuration = (stopCallTime + elapsedHoursInMinutes - startCallTime);
+            return phoneCallDuration();
         }
     }
 
@@ -56,4 +60,5 @@ public class SmartphoneActions implements SmartPhone {
                 .filter(number -> number.equals(phoneNumber))
                 .count();
     }
+
 }
