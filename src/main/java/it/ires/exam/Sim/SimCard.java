@@ -7,9 +7,7 @@ public class SimCard {
     private final String phoneNumber;
     private float credit;
     private OperatorPlan plan;
-    private Set<PhoneCall> phoneCalls;
-
-
+    private Set<PhoneCall> phoneCalls = new HashSet<>();
     private boolean isCallActive;
 
     public SimCard(String phoneNumber, Float credit, OperatorPlan plan) {

@@ -63,7 +63,7 @@ public class Smartphone implements SmartphoneInterface {
     @Override
     public long phoneCallDuration() {
         int stopCallTime = LocalDateTime.now().getMinute();
-        if (startCallTime < stopCallTime) {
+        if (startCallTime <= stopCallTime) {
             return (stopCallTime - startCallTime);
         } else {
             int elapsedHoursInMinutes = (LocalDateTime.now().getHour() - startCallHour) * 60;

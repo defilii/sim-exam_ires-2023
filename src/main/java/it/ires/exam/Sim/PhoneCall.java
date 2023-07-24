@@ -22,9 +22,9 @@ public class PhoneCall {
     @Override
     public String toString() {
         if (typeCall.equals(TypeCall.Calling)) {
-            return "PhoneCall to " + toWhom + " which lasted " + callLenght + '\n';
+            return "PhoneCall to " + toWhom + " which lasted " + callLenght + "minutes" + '\n';
         } else {
-            return "PhoneCall from " + toWhom + " which lasted " + callLenght + '\n';
+            return "PhoneCall from " + toWhom + " which lasted " + callLenght + "minutes" + '\n';
         }
     }
 

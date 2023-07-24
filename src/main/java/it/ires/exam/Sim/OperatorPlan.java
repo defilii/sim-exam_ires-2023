@@ -18,4 +18,17 @@ public class OperatorPlan {
                 break;
         }
     }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
 }

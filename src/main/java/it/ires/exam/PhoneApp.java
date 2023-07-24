@@ -1,6 +1,7 @@
 package it.ires.exam;
 
 import it.ires.exam.Sim.OperatorPlan;
+import it.ires.exam.Sim.Plan;
 import it.ires.exam.Sim.SimCard;
 import it.ires.exam.exceptions.InvalidPhoneNumberException;
 import it.ires.exam.exceptions.PhoneNumberIsAlreadyTakenException;
@@ -14,8 +15,13 @@ public class PhoneApp {
 
     NetworkActions networkActions = new NetworkActions();
 
-    Map<String, SimCard> simCards;
-    Set<String> takenPhoneNumbers;
+    static Map<String, SimCard> simCards = new HashMap<>();
+    static Set<String> takenPhoneNumbers = new HashSet<>();
+
+    public PhoneApp() {
+        Map<String, SimCard> simCards ;
+        Set<String> takenPhoneNumbers ;
+    }
 
     public String availableOperatorPlans() {
         List<OperatorPlan> availablePlans = Arrays.asList(OperatorPlan.class.getEnumConstants());
@@ -44,7 +50,7 @@ public class PhoneApp {
 
     public SimCard createNewSim(String phoneNumber, float credit, OperatorPlan operatorPlan) throws PhoneNumberIsAlreadyTakenException, InvalidPhoneNumberException {
         if (takenPhoneNumbers.contains(phoneNumber)) {
-            throw new PhoneNumberIsAlreadyTakenException();
+            throw new PhoneNumberIsAlreadyTakenException(phoneNumber);
         }
         if (!checkIfNumberIsValid(phoneNumber)) {
             throw new InvalidPhoneNumberException(phoneNumber);
@@ -56,7 +62,7 @@ public class PhoneApp {
     }
 
     private boolean checkIfNumberIsValid(String phoneNumber) {
-        Pattern pattern = Pattern.compile("\"((\\+?[0-9]{2})([0-9]{10}))\"gm");
+        Pattern pattern = Pattern.compile("\"((\\+?[0-9]{2})?([0-9]{10}))\"gm");
         Matcher matcher = pattern.matcher(phoneNumber.trim());
         return matcher.find();
     }
